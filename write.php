@@ -1,4 +1,5 @@
 <?php
+//어떤 id의 유저가 작성하는 지 알기 위해서
 session_start();
 ?>
 <!DOCTYPE html>
