@@ -1,7 +1,7 @@
 <?php
 session_start(); //향후 로그인 아이디 기억 후 수정 등 수행하기 위해?
  
-// 데이터베이스 연결
+// 데이터베이스 연결 , conn.php 파일 따로 만들어서 빼기
 $conn = mysqli_connect('localhost', 'root', '1234', 'winterweb') or die("fail");
 
 $sql = "SELECT * FROM board ORDER BY board_id DESC"; //역순 출력 
