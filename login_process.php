@@ -12,7 +12,8 @@ $conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-
+//세션 시작 
+session_start();
 // 폼 데이터 가져오기
 $id = $_POST['id']; // 사용자 ID
 $password = $_POST['password']; // 사용자 비밀번호
@@ -31,7 +32,12 @@ if ($stmt->num_rows > 0) {
 
     // 비밀번호 확인
     if ($password === $stored_password) {
-        echo "Login successful!";
+        $_SESSION['id'] = $id;
+        
+        echo "<script>
+            alert('Login successful!\\n환영합니다 {$id}님!');
+        window.location.href = 'main.php'
+        </script>";
     } else {
         echo "Invalid password.";
     }
