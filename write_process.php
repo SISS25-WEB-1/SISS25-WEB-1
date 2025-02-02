@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+ 
 // 데이터베이스 연결
 $conn = mysqli_connect('localhost', 'root', '1234', 'winterweb') or die("fail");
 

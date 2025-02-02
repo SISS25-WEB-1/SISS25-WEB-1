@@ -2,7 +2,7 @@
 session_start();
 $conn = mysqli_connect('localhost', 'root', '1234', 'winterweb') or die("fail");
 
-$board_id = $_GET['idx'];
+$board_id = $_GET['idx']; 
 $sql = "SELECT * FROM board WHERE board_id = $board_id";
 $result = mysqli_query($conn, $sql);
 $board = mysqli_fetch_assoc($result);

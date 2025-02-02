@@ -3,7 +3,7 @@
 session_start();
 ?>
 <!DOCTYPE html>
-<head>
+<head>  
     <meta charset="UTF-8">
     <title>write</title>
 </head>
