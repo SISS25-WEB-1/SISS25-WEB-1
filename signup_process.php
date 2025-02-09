@@ -3,7 +3,7 @@
 $host = 'localhost'; // 데이터베이스 호스트
 $db = 'winterWeb'; // 데이터베이스 이름
 $user = 'root'; // MySQL 사용자 이름
-$pass = ''; // MySQL 비밀번호
+$pass = '1234'; // MySQL 비밀번호
 
 // 데이터베이스 연결
 $conn = new mysqli($host, $user, $pass, $db);

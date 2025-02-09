@@ -25,8 +25,9 @@ if (mysqli_num_rows($result) == 0) {
     <title>read</title>
 </head>
 <body>
-    <h1>Page Share</h1>
+    <h1><a href="index.php">PageShare</a></h1>
     <a href="write.php"><input type="button" value="Go To Write Post!!"></a>
+    <a href="myPage.php"><input type="button" value="My Page"></a>
     <p>
     <table align="center">
         <tbody align="center">

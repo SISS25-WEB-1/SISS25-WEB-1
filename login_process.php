@@ -2,8 +2,8 @@
 // 데이터베이스 연결 정보
 $host = 'localhost'; // MySQL 서버 주소
 $user = 'root'; // MySQL 사용자 이름
-$pass = ''; // MySQL 사용자 비밀번호
-$db = 'winterWeb'; // 사용할 데이터베이스 이름
+$pass = '1234'; // MySQL 사용자 비밀번호
+$db = 'winterweb'; // 사용할 데이터베이스 이름
 
 // 데이터베이스 연결
 $conn = new mysqli($host, $user, $pass, $db);
@@ -35,7 +35,7 @@ if ($stmt->num_rows > 0) {
         $_SESSION['id'] = $id;
         
         echo "<script>
-            alert('Login successful!\\n환영합니다 {$id}님!');
+            alert('Login successful!\\Welcome {$id}!');
         window.location.href = 'main.php'
         </script>";
     } else {
