@@ -1,7 +1,5 @@
 <?php
 session_start();
-// 데이터베이스 연결 , conn.php 파일 따로 만들어서 빼기
-
 $conn = mysqli_connect('localhost', 'root', '1234', 'winterweb') or die("fail");
 
 $board_id = $_GET['idx']; 
