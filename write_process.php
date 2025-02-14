@@ -1,6 +1,6 @@
 <?php
 session_start();
- 
+
 // 데이터베이스 연결 , conn.php 파일 따로 만들어서 빼기
 $conn = mysqli_connect('localhost', 'root', '1234', 'winterweb') or die("fail");
 
@@ -11,7 +11,7 @@ $board_title = mysqli_real_escape_string($conn, $_POST['board_title']);
 $author = mysqli_real_escape_string($conn, $_POST['author']);
 $description = mysqli_real_escape_string($conn, $_POST['description']);
 $title = mysqli_real_escape_string($conn, $_POST['title']);
-
+$category = mysqli_real_escape_string($conn,$_POST['category']);
 // 파일 업로드 
 $upload_dir = 'uploads/';
 $file_name = NULL; 
@@ -36,8 +36,8 @@ if (isset($_FILES['upload_file']) && $_FILES['upload_file']['error'] == 0) {
     }
 }
 
-$sql = "INSERT INTO board (board_user, board_title, book_title, book_author, board_description, board_date, file_name) 
-        VALUES ('$user', '$board_title', '$title', '$author', '$description', NOW(), '$file_name')";
+$sql = "INSERT INTO board (board_user, board_title, book_title, book_author, board_description, board_date, file_name,category) 
+        VALUES ('$user', '$board_title', '$title', '$author', '$description', NOW(), '$file_name','$category')";
 
 $result = mysqli_query($conn, $sql);
 
