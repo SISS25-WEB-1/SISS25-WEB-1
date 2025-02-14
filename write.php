@@ -1,9 +1,8 @@
 <?php
-//어떤 id의 유저가 작성하는 지 알기 위해서
 session_start();
 ?>
 <!DOCTYPE html>
-<head>  
+<head>
     <meta charset="UTF-8">
     <title>write</title>
 </head>
@@ -18,6 +17,18 @@ session_start();
     <p>
     <input type = "text" name = "title" placeholder = "Book Title" required>
     <input type ="text" name ="author" placeholder = "author" required>
+    <p>
+            <select name="category" required>
+                <option value="소설">소설</option>
+                <option value="자기계발">자기계발</option>
+                <option value="경제/경영">경제/경영</option>
+                <option value="비문학">비문학</option>
+                <option value="실용서">실용서</option>
+                <option value ="예술/디자인">예술/디자인</option>
+                <option value ="그외">그외</option>
+            </select>
+            + Choose Category
+        </p>
     </p>
     <p><textarea name = "description" placeholder = "Enter details..." required rows="30" cols="100%"></textarea></p>
     <p><input type = "file" value = "upload_file" name = "upload_file"> + Share Image! </p>
