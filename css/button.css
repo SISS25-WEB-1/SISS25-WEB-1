@@ -1,17 +1,18 @@
 button {
-  padding: 10px 20px;
+  padding: 10px 30px;
   border-radius: 15px;
-  font-size: 16px;
+  font-size: 30px;
   cursor: pointer;
   border: 1px solid black;
   color: black;
-  background-color: white;
-  margin: 5px;
+  background-color: rgb(176, 173, 173);
+  margin: 30px 5px;
   transition: all 0.3s ease;
 }
 
+
 /*유선: 커서 올렸을 때 색 변경 코드. 오옛날에 만들어둔 코드인데 실행이 안 됨. 보완 예정.*/
 button:hover {
-  background-color: black;
+  baㄴckground-color: black;
   color: lightgray;
 }
