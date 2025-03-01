@@ -13,6 +13,6 @@ button {
 
 /*유선: 커서 올렸을 때 색 변경 코드. 오옛날에 만들어둔 코드인데 실행이 안 됨. 보완 예정.*/
 button:hover {
-  baㄴckground-color: black;
+  background-color: black;
   color: lightgray;
 }
