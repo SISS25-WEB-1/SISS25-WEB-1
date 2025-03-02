@@ -1,17 +1,34 @@
 <?php
-session_start();
+session_start(); 
 
 // 데이터베이스 연결
 $conn = mysqli_connect('localhost', 'root', '1234', 'winterweb') or die("fail");
 
-$sql = "SELECT * FROM board ORDER BY board_id DESC";
+$sql = "SELECT * FROM board ORDER BY board_id DESC"; 
 $result = mysqli_query($conn, $sql);
-if ($result == false) {
-    echo '문제가 생겼습니다. 관리자에게 문의해주세요';
-    error_log(mysqli_error($conn));
+if (!$result) {
+    die("fail " . mysqli_error($conn));
 }
 
-$no_data = mysqli_num_rows($result) == 0;
+$num = mysqli_num_rows($result); 
+$no_data = ($num == 0);
+
+// 페이징 처리
+$list_num = 10;
+$page_num = 5;
+$page = isset($_GET["page"]) ? (int)$_GET["page"] : 1;
+$total_page = ceil($num / $list_num);
+$total_block = ceil($total_page / $page_num);
+$now_block = ceil($page / $page_num);
+
+$s_pageNum = ($now_block - 1) * $page_num + 1;
+$s_pageNum = max($s_pageNum, 1);
+
+$e_pageNum = min($now_block * $page_num, $total_page);
+$start = ($page - 1) * $list_num;
+
+$sql = "SELECT * FROM board ORDER BY board_date DESC LIMIT $start, $list_num";
+$result2 = mysqli_query($conn, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -33,47 +50,70 @@ $no_data = mysqli_num_rows($result) == 0;
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1><a href="index.php">PageShare</a></h1>
-            <div>
-                <a href="write.php" class="button">Write Post</a>
-                <a href="myPage.php" class="button">My Page</a>
-            </div>
+
+<div class="container">
+    <div class="header">
+        <h1><a href="index.php">PageShare</a></h1>
+        <div>
+            <a href="write.php" class="button">Write Post</a>
+            <a href="myPage.php" class="button">My Page</a>
+            <a href="logout.php" class="button">Logout</a>
         </div>
-        
-        <table>
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Book Title</th>
-                    <th>Author</th>
-                    <th>User</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php 
-                if ($no_data) { 
-                    echo "<tr><td colspan='5'>No posts available.</td></tr>";
-                } else {
-                    while ($rows = mysqli_fetch_assoc($result)) {
-                        $board_date = new DateTime($rows['board_date']);
-                        $formatted_date = $board_date->format('Y-m-d');
-                ?>
-                <tr>
-                    <td><a href="read.php?idx=<?= $rows['board_id'] ?>"><?= htmlspecialchars($rows['board_title']) ?></a></td>
-                    <td><?= htmlspecialchars($rows['book_title']) ?></td>
-                    <td><?= htmlspecialchars($rows['book_author']) ?></td>
-                    <td><?= htmlspecialchars($rows['board_user']) ?></td>
-                    <td><?= $formatted_date; ?></td>
-                </tr>
-                <?php
-                    }
-                }
-                ?>
-            </tbody>
-        </table>
     </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Book Title</th>
+                <th>Author</th>
+                <th>User</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php 
+            if ($no_data) { 
+                echo "<tr><td colspan='5'>No posts available.</td></tr>";
+            } else {
+                while ($rows = mysqli_fetch_assoc($result2)) { 
+                    $formatted_date = date('Y-m-d', strtotime($rows['board_date']));
+            ?>
+            <tr>
+                <td><a href="read.php?idx=<?= $rows['board_id'] ?>"><?= htmlspecialchars($rows['board_title']) ?></a></td>
+                <td><?= htmlspecialchars($rows['book_title']) ?></td>
+                <td><?= htmlspecialchars($rows['book_author']) ?></td>
+                <td><?= htmlspecialchars($rows['board_user']) ?></td>
+                <td><?= $formatted_date; ?></td>
+            </tr>
+            <?php
+                }
+            }
+            ?>
+        </tbody>
+    </table>
+    <div class="paging">
+
+    <?php if ($page >= 1) { ?> 
+        <a href="main.php?page=<?php if ($page ==1) {$page = 2;} echo ($page - 1) ?>">PREV</a> <!-- 이전 페이지로 이동 -->
+    <?php } ?>
+
+    <?php
+    for ($print_page = $s_pageNum; $print_page <= $e_pageNum; $print_page++) { ?>
+        <a href="main.php?page=<?= $print_page; ?>"
+          >
+           <?= $print_page; ?>
+        </a>
+    <?php } ?>
+
+    <?php if ($page <= $total_page) { ?>
+        <a href="main.php?page=<?= ($page < $total_page) ? ($page + 1) : $total_page ?>">NEXT</a>
+    <?php } ?>
+
+</div>
+
+    </div>
+</div>
+
 </body>
 </html>
